@@ -100,7 +100,7 @@ function calcularCupoycarrito (carrito, cursos, idcurso) {
             })
         }
             cursoBuscado.inscriptos++
-            alert(`¡Te esperamos en tu clase! \nRESERVA EFECTUADA)
+            alert(`¡Te esperamos en tu clase! \nRESERVA EFECTUADA.\n${listar(carrito)}`)
         } else {
             alert("Lo siento, no hay más cupos disponibles para este curso.")
         }

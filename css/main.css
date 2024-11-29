@@ -1,0 +1,123 @@
+/*resert*/
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  min-width: 0;
+}
+
+body {
+  min-height: 100dvh;
+}
+
+h1, h2, h3, h4, h5 {
+  text-wrap: balance;
+}
+
+p {
+  text-wrap: pretty;
+}
+
+header {
+  background-color: #545454;
+  text-align: center;
+}
+
+main {
+  background-color: #545454;
+  color: #d9d9d9;
+  padding: 2%;
+  font-family: "Raleway", serif;
+}
+main h3 {
+  font-size: 1rem;
+}
+main h2 {
+  font-size: 1.2rem;
+}
+main h1 {
+  font-size: 1.2rem;
+}
+main h4 {
+  font-size: 1rem;
+}
+main p {
+  font-size: 1rem;
+}
+main a {
+  text-decoration: none;
+  color: #d9d9d9;
+}
+
+#contenedorDeTarjetas { 
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+  
+}
+
+
+
+.card-principal{
+  color: #737373;
+  height: auto;
+  margin: 1%;
+  background-color: #66c6e4;
+  padding: 3%;
+  gap: 10%;
+}
+
+.card-principal img {
+  border-radius: 50%;
+  padding: 2%;
+}
+.card-principal .card-text {
+  padding: 2%;
+}
+
+button {
+  background-color: #737373;
+  color: #FFFFFF;
+  text-align: center;
+  width: 10rem;
+  padding: 2%;
+  border-radius: 3%;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button :hover {
+  background-color: #66c6e4;
+  color: #545454;
+}
+
+#reserva {
+  background-color: #66c6e4;
+  color: #545454;
+  width: 100%;
+  min-height: 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.tarjetaReserva {
+  width: 80%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* se usa important para js pq reserva ya tiene display flex y entra en confilcto con display none*/
+.oculta {
+  display: none !important ;
+}
+
+footer {
+  background-color: #66c6e4;
+  text-align: center;
+  color: #d9d9d9;
+}
+
+

@@ -12,8 +12,6 @@ function principal() {
     crearTarjetasCursos(cursos)
 
 
-    console.dir(contenedorDeTarjetas)
-
     let inputBuscar = document.getElementById("inputBuscar")
     inputBuscar.addEventListener("keyup", (e) => filtrarYrenderizar(e, cursos))
 
@@ -108,16 +106,28 @@ function AgregarAReserva(event, cursos) {
                 })
             }
             cursoBuscado.inscriptos++
-            alert("¡Te esperamos en tu clase! \nRESERVA EFECTUADA")
+            mostrarMensaje("¡Te esperamos en tu clase! RESERVA EFECTUADA", "exito")
         } else {
-            alert("Lo siento, no hay más cupos disponibles para este curso.")
+            mostrarMensaje("Lo siento, no hay más cupos disponibles para este curso.", "error")
         }
     } else {
-        alert("Curso no encontrado.")
+        mostrarMensaje("Curso no encontrado.", "error")
     }
 
     guardarEnStorage("reserva", reserva)
     renderizarReserva(reserva)
+}
+
+
+function mostrarMensaje(texto, tipo ) {
+    const mensaje = document.getElementById("mensaje")
+    mensaje.textContent = texto
+    mensaje.className = `mensaje ${tipo}`
+    mensaje.classList.remove("oculto")
+
+    setTimeout(() => {
+        mensaje.classList.add("oculto")
+    }, 5000)
 }
 
 function renderizarReserva(reserva) {

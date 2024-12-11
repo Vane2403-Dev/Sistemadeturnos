@@ -36,7 +36,7 @@ main h2 {
   font-size: 1.2rem;
 }
 main h1 {
-  font-size: 1.2rem;
+  font-size: 2rem;
 }
 main h4 {
   font-size: 1rem;
@@ -49,6 +49,21 @@ main a {
   color: #d9d9d9;
 }
 
+.buscar {
+  display: flex;
+} 
+
+#inputBuscar{
+  background-color:#d9d9d9;
+  width: 50%;
+  padding: 1%;
+  font-size: 1rem;
+  border: 1px solid #737373;
+  border-radius: 2%;
+  box-sizing: border-box;
+  transition: border-color 0.3s ease;
+}
+
 #contenedorDeTarjetas { 
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -56,7 +71,11 @@ main a {
   
 }
 
-
+@media screen and (max-width: 750px) {
+  #contenedorDeTarjetas {
+    grid-template-columns: 1fr;
+  }
+}
 
 .card-principal{
   color: #737373;
@@ -65,30 +84,39 @@ main a {
   background-color: #66c6e4;
   padding: 3%;
   gap: 10%;
+  text-align: center;
 }
 
 .card-principal img {
   border-radius: 50%;
-  padding: 2%;
+  padding: 3%;
 }
 .card-principal .card-text {
   padding: 2%;
 }
 
+
 button {
   background-color: #737373;
   color: #FFFFFF;
   text-align: center;
-  width: 10rem;
-  padding: 2%;
+  padding: 1%;
   border-radius: 3%;
   cursor: pointer;
   transition: background-color 0.3s ease;
+  min-width: 2rem;
+  
 }
 
 button :hover {
   background-color: #66c6e4;
   color: #545454;
+}
+
+button .agregar  {
+  width: 2rem;
+  padding: 5%;
+  margin: 5%;
 }
 
 #reserva {
@@ -98,16 +126,19 @@ button :hover {
   min-height: 50px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-around;
   align-items: center;
 }
 
+
 .tarjetaReserva {
-  width: 80%;
+  width: 100%;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
 }
+
+
 
 /* se usa important para js pq reserva ya tiene display flex y entra en confilcto con display none*/
 .oculta {

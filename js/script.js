@@ -21,10 +21,13 @@ function principal() {
     let botonCursosReservados = document.getElementById("botonCursosReservados")
     botonCursosReservados.addEventListener("click", verOcultarReserva)
 
-    let botonesAgregarReserva = document.getElementsByClassName("botonAgregarReserva")
-    for (const boton of botonesAgregarReserva) {
-    boton.addEventListener("click", (e) => AgregarAReserva (e, cursos))
-}
+
+    const contenedorDeTarjetas = document.getElementById("contenedorDeTarjetas")
+    contenedorDeTarjetas.addEventListener("click", (e) => {
+        if (e.target.classList.contains("botonAgregarReserva")) {
+            AgregarAReserva(e, cursos)
+        }
+    })
 
 }
 
@@ -65,8 +68,6 @@ function crearTarjetasCursos(cursos) {
                 <button id = ${curso.id} class="botonAgregarReserva">Reservar Turno</button>
         `
         contenedor.appendChild(tarjetaCurso)
-
-     
     })
 }
 
@@ -119,7 +120,7 @@ function AgregarAReserva(event, cursos) {
 }
 
 
-function mostrarMensaje(texto, tipo ) {
+function mostrarMensaje(texto, tipo) {
     const mensaje = document.getElementById("mensaje")
     mensaje.textContent = texto
     mensaje.className = `mensaje ${tipo}`
@@ -133,15 +134,19 @@ function mostrarMensaje(texto, tipo ) {
 function renderizarReserva(reserva) {
     let contenedorReserva = document.getElementById("reserva")
     contenedorReserva.innerHTML = ""
-
     reserva.forEach(cursoReservado => {
         let tarjetaReserva = document.createElement("div")
         tarjetaReserva.className = "tarjetaReserva"
         tarjetaReserva.innerHTML = `
             <p>${cursoReservado.nombre}</p>
-            <p>Valor unitario: $${cursoReservado.Valor}</p>
-            <p>Unidades: ${cursoReservado.unidades}</p>
+            <p> $${cursoReservado.Valor}</p>
+            <div Class = "tjb">
+            <button  class="agregar">-</button>
+            <p> ${cursoReservado.unidades}</p>
+            <button  class="agregar">+</button>
+            </div>
             <p>Subtotal: $${cursoReservado.subtotal}</p>
+            <button  class="eliminar">icono</button>
         `;
         contenedorReserva.appendChild(tarjetaReserva)
     });
@@ -163,7 +168,9 @@ function recuperarReservaDelStorage() {
 
 
 
-///guncion mia para debuguar funcionamiento de botones
+
+
+///funcion mia para debuguar funcionamiento de botones
 function escucharBotones(e) {
     console.log(e.target)
 }

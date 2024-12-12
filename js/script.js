@@ -8,15 +8,15 @@ async function principal() {
         { id: 5, nombre: "Coaching Emocional", profesional: "Toni Montana", cupo: 1, inscriptos: 0, categoria: "Consultorio", dias: "jueves 12 a 14", valor: 6000, periodoabono: "dia", rutaImagen: "1.png" }
     ]*/
 
- 
+
 
     const cursos = await obtenerCursos()
     guardarEnStorage("cursos", cursos)
-    
+
     crearTarjetasCursos(cursos)
 
 
- 
+
 
     let inputBuscar = document.getElementById("inputBuscar")
     inputBuscar.addEventListener("keyup", (e) => filtrarYrenderizar(e, cursos))
@@ -50,18 +50,19 @@ principal()
 
 async function obtenerCursos() {
     try {
-       
+
         const response = await axios.get('./js/cursos.json')
         return response.data
-    } catch (error) { e
+    } catch (error) {
+        e
         mostrarMensaje("Hubo un problema al obtener los cursos: ", "error")
         return []
     }
-    
+
 }
 
 function finalizarReserva() {
-     mostrarMensaje("Gracias por su Reserva")
+    mostrarMensaje("Gracias por su Reserva")
 }
 
 async function cancelarTotal() {
@@ -201,13 +202,12 @@ function renderizarReserva(reserva) {
             <p> ${cursoReservado.unidades}</p>
             </div>
             <p>Subtotal:$${cursoReservado.subtotal}</p>
-            <button   id=eli${cursoReservado.id} ><img src="./img/vector/Vector 12.png" alt="tacho de basura"></button>
-        `
+            <button   id=eli${cursoReservado.id} ><img src="./img/vector/Vector 12.png" alt="tacho de basura"></button>`
         contenedorReserva.appendChild(tarjetaReserva)
 
         let botonEliminar = document.getElementById("eli" + cursoReservado.id)
-        botonEliminar.addEventListener("click",  eliminarReserva)
-})
+        botonEliminar.addEventListener("click", eliminarReserva)
+    })
     let total = calcularTotal(reserva)
     actualizarTotal(total)
 }
@@ -219,12 +219,12 @@ function calcularTotal(reserva) {
 function actualizarTotal(total) {
     let elementoTotal = document.getElementById("total")
     elementoTotal.innerText = "$" + total
-    
+
 }
 
 function eliminarReserva(e) {
     let id = Number(e.target.id.substring(3))
-    let reserva=recuperarDelStorage("reserva")
+    let reserva = recuperarDelStorage("reserva")
     let cursos = recuperarDelStorage("cursos")
     let cursoBuscado = cursos.find(curso => curso.id === id)
     let indiceCurso = reserva.findIndex(curso => curso.id === id)
@@ -232,7 +232,7 @@ function eliminarReserva(e) {
         console.log(cursoBuscado.inscriptos)
         reserva.splice(indiceCurso, 1)
         e.target.parentElement.remove()
-        cursoBuscado.inscriptos=cursoBuscado.inscriptos-reserva.unidades
+        cursoBuscado.inscriptos = cursoBuscado.inscriptos - reserva.unidades
     }
     cursoBuscado.inscriptos++
     guardarEnStorage("reserva", reserva)

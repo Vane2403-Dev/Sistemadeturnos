@@ -39,6 +39,9 @@ async function principal() {
 
     actualizarTotal(total)
 
+    let botonReservar = document.getElementById("botonReservar")
+    botonReservar.addEventListener("click", finalizarReserva)
+
 
 }
 
@@ -54,6 +57,16 @@ async function obtenerCursos() {
         console.error("Hubo un problema al obtener los cursos: ", error)
         return []
     }
+}
+
+function finalizarReserva() {
+    cancelarTotal()
+     mostrarMensaje("Gracias por su Reserva")
+}
+
+function cancelarTotal() {
+    renderizarReserva([])
+    localStorage.removeItem("reserva")
 }
 
 function filtrarYrenderizarConBoton(input, cursos) {
@@ -221,15 +234,7 @@ function eliminarReserva(e) {
     ////actualizarCupos(reserva)
 }
 
-function cancelarTotal(e) {
-    let reserva=recuperarReservaDelStorage()
-    reserva = []
-    guardarEnStorage("reserva", reserva)
-    renderizarReserva(reserva)
-    const total = calcularTotal(reserva)
-    actualizarTotal(total)
-    ///actualizarCupos(reserva)
-}
+
 
 function mostrarMensaje(texto, tipo) {
     const mensaje = document.getElementById("mensaje")
@@ -241,3 +246,4 @@ function mostrarMensaje(texto, tipo) {
         mensaje.classList.add("oculto")
     }, 5000)
 }
+

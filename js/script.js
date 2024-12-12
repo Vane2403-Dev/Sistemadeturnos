@@ -9,8 +9,12 @@ function principal() {
     ]
 
 
+
+    
     crearTarjetasCursos(cursos)
 
+
+ 
 
     let inputBuscar = document.getElementById("inputBuscar")
     inputBuscar.addEventListener("keyup", (e) => filtrarYrenderizar(e, cursos))
@@ -28,6 +32,12 @@ function principal() {
             AgregarAReserva(e, cursos)
         }
     })
+
+    let botonComprar = document.getElementById("botonCancelar")
+    botonComprar.addEventListener("click", cancelarTotal)
+
+    actualizarTotal(total)
+
 
 }
 
@@ -73,8 +83,10 @@ function crearTarjetasCursos(cursos) {
 
 function verOcultarReserva(e) {
     let reserva = document.getElementById("reserva")
+    let totales = document.getElementById("totales")
     let contenedorDeTarjetas = document.getElementById("contenedorDeTarjetas")
 
+    totales.classList.toggle("oculta")
     reserva.classList.toggle("oculta")
     contenedorDeTarjetas.classList.toggle("oculta")
 
@@ -85,6 +97,8 @@ function verOcultarReserva(e) {
 
     e.target.innerText = e.target.innerText === "Cursos" ? "Reserva" : "Cursos"
 }
+
+
 
 function AgregarAReserva(event, cursos) {
     let reserva = recuperarReservaDelStorage()
@@ -119,39 +133,6 @@ function AgregarAReserva(event, cursos) {
     renderizarReserva(reserva)
 }
 
-
-function mostrarMensaje(texto, tipo) {
-    const mensaje = document.getElementById("mensaje")
-    mensaje.textContent = texto
-    mensaje.className = `mensaje ${tipo}`
-    mensaje.classList.remove("oculto")
-
-    setTimeout(() => {
-        mensaje.classList.add("oculto")
-    }, 5000)
-}
-
-function renderizarReserva(reserva) {
-    let contenedorReserva = document.getElementById("reserva")
-    contenedorReserva.innerHTML = ""
-    reserva.forEach(cursoReservado => {
-        let tarjetaReserva = document.createElement("div")
-        tarjetaReserva.className = "tarjetaReserva"
-        tarjetaReserva.innerHTML = `
-            <p>${cursoReservado.nombre}</p>
-            <p> $${cursoReservado.Valor}</p>
-            <div Class = "tjb">
-            <button  class="agregar">-</button>
-            <p> ${cursoReservado.unidades}</p>
-            <button  class="agregar">+</button>
-            </div>
-            <p>Subtotal: $${cursoReservado.subtotal}</p>
-            <button  class="eliminar">icono</button>
-        `;
-        contenedorReserva.appendChild(tarjetaReserva)
-    });
-}
-
 function guardarEnStorage(clave, valor) {
     let valorJson = JSON.stringify(valor)
     localStorage.setItem(clave, valorJson)
@@ -168,15 +149,82 @@ function recuperarReservaDelStorage() {
 
 
 
+function renderizarReserva(reserva) {
+    let contenedorReserva = document.getElementById("reserva")
+    contenedorReserva.innerHTML = ""
+    reserva.forEach(cursoReservado => {
+        let tarjetaReserva = document.createElement("div")
+        tarjetaReserva.className = "tarjetaReserva"
+        tarjetaReserva.id = `R${cursoReservado.id}`
+        tarjetaReserva.innerHTML = `
+            <p>${cursoReservado.nombre}</p>
+            <p> $${cursoReservado.Valor}</p>
+            <div Class = "tjb">
+            <p> ${cursoReservado.unidades}</p>
+            </div>
+            <p>Subtotal:$${cursoReservado.subtotal}</p>
+            <button   id=eli${cursoReservado.id} ><img src="./img/vector/Vector 12.png" alt="tacho de basura"></button>
+        `
+        contenedorReserva.appendChild(tarjetaReserva)
 
-
-///funcion mia para debuguar funcionamiento de botones
-function escucharBotones(e) {
-    console.log(e.target)
+        let botonEliminar = document.getElementById("eli" + cursoReservado.id)
+        botonEliminar.addEventListener("click",  eliminarReserva)
+})
+    let total = calcularTotal(reserva)
+    actualizarTotal(total)
 }
 
-
-function AgregarAlCarrito(e) {
-    console.dir(e.target)
+function calcularTotal(reserva) {
+    return reserva.reduce((acum, curso) => acum + curso.subtotal, 0)
 }
 
+function actualizarTotal(total) {
+    let elementoTotal = document.getElementById("total")
+    elementoTotal.innerText = "$" + total
+    
+}
+
+function actualizarCupos(reserva) {
+    ////sacar cursos con fetch del json
+    reserva.forEach(cursoReservado => {
+        let cursoBuscado = cursos.find(curso => curso.id === cursoReservado.id)
+        if (cursoBuscado) {
+            cursoBuscado.inscriptos = Math.max(0, cursoBuscado.inscriptos - cursoReservado.unidades)
+        }
+    })
+}
+
+function eliminarReserva(e) {
+    let id = Number(e.target.id.substring(3))
+    let reserva=recuperarReservaDelStorage()
+    let indiceCurso = reserva.findIndex(curso => curso.id === id)
+    if (indiceCurso !== -1) {
+        reserva.splice(indiceCurso, 1)
+        e.target.parentElement.remove()
+    }
+    guardarEnStorage("reserva", reserva)
+    const total = calcularTotal(reserva)
+    actualizarTotal(total)
+    ////actualizarCupos(reserva)
+}
+
+function cancelarTotal(e) {
+    let reserva=recuperarReservaDelStorage()
+    reserva = []
+    guardarEnStorage("reserva", reserva)
+    renderizarReserva(reserva)
+    const total = calcularTotal(reserva)
+    actualizarTotal(total)
+    ///actualizarCupos(reserva)
+}
+
+function mostrarMensaje(texto, tipo) {
+    const mensaje = document.getElementById("mensaje")
+    mensaje.textContent = texto
+    mensaje.className = `mensaje ${tipo}`
+    mensaje.classList.remove("oculto")
+
+    setTimeout(() => {
+        mensaje.classList.add("oculto")
+    }, 5000)
+}

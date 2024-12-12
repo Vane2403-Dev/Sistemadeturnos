@@ -119,6 +119,10 @@ button .agregar  {
   margin: 5%;
 }
 
+button img {
+  width: 30%;
+}
+
 #reserva {
   background-color: #66c6e4;
   color: #545454;

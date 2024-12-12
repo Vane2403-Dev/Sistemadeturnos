@@ -9,7 +9,7 @@
     "dias": "lunes y miercoles 10 a 11",
     "valor": 15000,
     "periodoabono": "mensual",
-    "rutaImagen": "1.png"
+    "rutaImagen": "2.png"
   },
   {
     "id": 2,
@@ -21,7 +21,7 @@
     "dias": "miercoles 10 a 11",
     "valor": 25000,
     "periodoabono": "mensual",
-    "rutaImagen": "2.png"
+    "rutaImagen": "3.png"
   },
   {
     "id": 3,
@@ -33,7 +33,7 @@
     "dias": "lunes y miercoles 10 a 11",
     "valor": 15000,
     "periodoabono": "mensual",
-    "rutaImagen": "3.png"
+    "rutaImagen": "5.png"
   },
   {
     "id": 4,

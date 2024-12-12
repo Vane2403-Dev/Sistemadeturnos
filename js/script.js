@@ -11,6 +11,7 @@ async function principal() {
  
 
     const cursos = await obtenerCursos()
+    guardarEnStorage("cursos", cursos)
     
     crearTarjetasCursos(cursos)
 
@@ -52,21 +53,23 @@ async function obtenerCursos() {
        
         const response = await axios.get('./js/cursos.json')
         return response.data
-    } catch (error) {
-       e
-        console.error("Hubo un problema al obtener los cursos: ", error)
+    } catch (error) { e
+        mostrarMensaje("Hubo un problema al obtener los cursos: ", "error")
         return []
     }
+    
 }
 
 function finalizarReserva() {
-    cancelarTotal()
      mostrarMensaje("Gracias por su Reserva")
 }
 
-function cancelarTotal() {
+async function cancelarTotal() {
     renderizarReserva([])
     localStorage.removeItem("reserva")
+    localStorage.removeItem("cursos")
+    const cursos = await obtenerCursos()
+    guardarEnStorage("cursos", cursos)
 }
 
 function filtrarYrenderizarConBoton(input, cursos) {
@@ -117,8 +120,8 @@ function verOcultarReserva(e) {
     contenedorDeTarjetas.classList.toggle("oculta")
 
     if (!reserva.classList.contains("oculta")) {
-        let reservas = recuperarReservaDelStorage();
-        renderizarReserva(reservas);
+        let reservas = recuperarDelStorage("reserva")
+        renderizarReserva(reservas)
     }
 
     e.target.innerText = e.target.innerText === "Cursos" ? "Reserva" : "Cursos"
@@ -126,9 +129,10 @@ function verOcultarReserva(e) {
 
 
 
-function AgregarAReserva(event, cursos) {
-    let reserva = recuperarReservaDelStorage()
+function AgregarAReserva(event) {
+    let reserva = recuperarDelStorage("reserva")
     let id = Number(event.target.id)
+    let cursos = recuperarDelStorage("cursos")
     let cursoBuscado = cursos.find(curso => curso.id === id)
     let indiceReserva = reserva.findIndex(cursoreserva => cursoreserva.id === id)
     if (cursoBuscado) {
@@ -156,6 +160,7 @@ function AgregarAReserva(event, cursos) {
     }
 
     guardarEnStorage("reserva", reserva)
+    guardarEnStorage("cursos", cursos)
     renderizarReserva(reserva)
 }
 
@@ -164,14 +169,21 @@ function guardarEnStorage(clave, valor) {
     localStorage.setItem(clave, valorJson)
 }
 
-function recuperarReservaDelStorage() {
+/*function recuperarReservaDelStorage() {
     let valorJson = localStorage.getItem("reserva")
     let reserva = JSON.parse(valorJson)
     if (!reserva) {
         reserva = []
     }
     return reserva
+}*/
+function recuperarDelStorage(clave) {
+    let valorJson = localStorage.getItem(clave)
+    let valor = JSON.parse(valorJson)
+    return Array.isArray(valor) ? valor : []
 }
+
+
 
 
 
@@ -210,25 +222,21 @@ function actualizarTotal(total) {
     
 }
 
-function actualizarCupos(reserva) {
-    ////sacar cursos con fetch del json
-    reserva.forEach(cursoReservado => {
-        let cursoBuscado = cursos.find(curso => curso.id === cursoReservado.id)
-        if (cursoBuscado) {
-            cursoBuscado.inscriptos = Math.max(0, cursoBuscado.inscriptos - cursoReservado.unidades)
-        }
-    })
-}
-
 function eliminarReserva(e) {
     let id = Number(e.target.id.substring(3))
-    let reserva=recuperarReservaDelStorage()
+    let reserva=recuperarDelStorage("reserva")
+    let cursos = recuperarDelStorage("cursos")
+    let cursoBuscado = cursos.find(curso => curso.id === id)
     let indiceCurso = reserva.findIndex(curso => curso.id === id)
     if (indiceCurso !== -1) {
+        console.log(cursoBuscado.inscriptos)
         reserva.splice(indiceCurso, 1)
         e.target.parentElement.remove()
+        cursoBuscado.inscriptos=cursoBuscado.inscriptos-reserva.unidades
     }
+    cursoBuscado.inscriptos++
     guardarEnStorage("reserva", reserva)
+    guardarEnStorage("cursos", cursos)
     const total = calcularTotal(reserva)
     actualizarTotal(total)
     ////actualizarCupos(reserva)

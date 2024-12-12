@@ -1,15 +1,16 @@
-function principal() {
+async function principal() {
 
-    let cursos = [
+    /*let cursos = [
         { id: 1, nombre: "Yoga Hasana", profesional: "Mariangeles Julia", cupo: 3, inscriptos: 0, categoria: "yoga", dias: "lunes y miercoles 10 a 11", valor: 15000, periodoabono: "mensual", rutaImagen: "2.png" },
         { id: 2, nombre: "Stretching", profesional: "Juan Perez", cupo: 2, inscriptos: 0, categoria: "Clases", dias: "miercoles 10 a 11", valor: 25000, periodoabono: "mensual", rutaImagen: "3.png" },
         { id: 3, nombre: "Meditación", profesional: "Celia Cruz", cupo: 4, inscriptos: 0, categoria: "Clases", dias: "lunes y miercoles 10 a 11", valor: 15000, periodoabono: "mensual", rutaImagen: "5.png" },
         { id: 4, nombre: "Masajes Relajantes", profesional: "Margarita Robie", cupo: 1, inscriptos: 0, categoria: "Consultorio", dias: "lunes y Viernes 20 a 21", valor: 5000, periodoabono: "dia", rutaImagen: "4.png" },
         { id: 5, nombre: "Coaching Emocional", profesional: "Toni Montana", cupo: 1, inscriptos: 0, categoria: "Consultorio", dias: "jueves 12 a 14", valor: 6000, periodoabono: "dia", rutaImagen: "1.png" }
-    ]
+    ]*/
 
+ 
 
-
+    const cursos = await obtenerCursos()
     
     crearTarjetasCursos(cursos)
 
@@ -42,6 +43,18 @@ function principal() {
 }
 
 principal()
+
+async function obtenerCursos() {
+    try {
+       
+        const response = await axios.get('./js/cursos.json')
+        return response.data
+    } catch (error) {
+       e
+        console.error("Hubo un problema al obtener los cursos: ", error)
+        return []
+    }
+}
 
 function filtrarYrenderizarConBoton(input, cursos) {
     let cursosFiltrados = filtrar(input.value, cursos)

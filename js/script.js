@@ -125,7 +125,7 @@ function verOcultarReserva(e) {
         renderizarReserva(reservas)
     }
 
-    e.target.innerText = e.target.innerText === "Cursos" ? "Reserva" : "Cursos"
+    e.target.innerText = e.target.innerText === "☚ Cursos" ? "Ver Reserva" : "☚ Cursos"
 }
 
 
@@ -202,7 +202,7 @@ function renderizarReserva(reserva) {
             <p> ${cursoReservado.unidades}</p>
             </div>
             <p>Subtotal:$${cursoReservado.subtotal}</p>
-            <button   id=eli${cursoReservado.id} ><img src="./img/vector/Vector 12.png" alt="tacho de basura"></button>`
+            <button   id=eli${cursoReservado.id} >🗑️ Eliminar</button>`
         contenedorReserva.appendChild(tarjetaReserva)
 
         let botonEliminar = document.getElementById("eli" + cursoReservado.id)

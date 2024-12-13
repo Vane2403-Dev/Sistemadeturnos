@@ -62,8 +62,12 @@ async function obtenerCursos() {
 }
 
 function finalizarReserva() {
-    mostrarMensaje("Gracias por su Reserva")
+    const Reserva = recuperarDelStorage("reserva")
+     if (Reserva.length === 0)
+     { mostrarMensaje("No posee cursos seleccionados", "error") }
+       else { mostrarMensaje("Gracias por su Reserva")}
 }
+
 
 async function cancelarTotal() {
     renderizarReserva([])

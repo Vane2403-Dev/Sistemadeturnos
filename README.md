@@ -11,7 +11,7 @@ Este es un **sistema de turnos** creado como parte de un curso de **JavaScript**
 Sé que el proyecto aún necesita optimización, pero **pronto vendrán cambios** para mejorar su rendimiento y funcionalidades.  
 
 ## 🛠 Tecnologías Utilizadas  
-- **JavaScript (ES6+)**  
+- **JavaScript **  
 - **HTML5 y CSS3**  
 - **LocalStorage para persistencia de datos**  
 

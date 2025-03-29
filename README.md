@@ -1,5 +1,17 @@
-Este es un sistema de turnos creado para un curso de JavaScript, quise salir del sistema de e-commerce que daban en el curso y 
-trate de hacer algo mas orignal, que valide cupos, es una mezcla entre lo que seria un sistema de turnos gimnasio y de turnos profesionales. 
-Ya que lo hice pensando en una amiga que tiene un espacio holistico, donde tiene clases grupales como entrevistas individuales. 
-Ademas tenia forma de usar librerías para las alertas, pero me gusto hacerlas sin librería
-Espero les guste
+# 📅 Sistema de Turnos  
+
+Este es un **sistema de turnos** creado como parte de un curso de **JavaScript**. En lugar de seguir el modelo tradicional de e-commerce propuesto en el curso, decidí hacer algo más original:  
+
+✅ **Validación de cupos** para clases grupales e individuales.  
+✅ **Combinación** entre un sistema de turnos para gimnasios y profesionales.  
+✅ **Diseñado para un espacio holístico**, pensado en las necesidades de una amiga.  
+✅ **Alertas sin librerías**, preferí desarrollar mi propia solución en lugar de usar librerías externas.  
+
+## 🚀 Mejoras Futuras  
+Sé que el proyecto aún necesita optimización, pero **pronto vendrán cambios** para mejorar su rendimiento y funcionalidades.  
+
+## 🛠 Tecnologías Utilizadas  
+- **JavaScript (ES6+)**  
+- **HTML5 y CSS3**  
+- **LocalStorage para persistencia de datos**  
+
